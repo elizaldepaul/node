@@ -1,0 +1,57 @@
+.register-image {
+  background-image:url("../img/register.svg")!important;
+  width: 30px!important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 350px 500px;
+}
+.radio-group {
+    display: flex;
+    flex-direction: row; /* Display items horizontally */
+    align-items: center; /* Vertically align items */
+    gap: 2px;
+  }
+  
+  .radio-group input[type="radio"] {
+    margin-left: 20px;
+    padding-bottom: 10px; /* Add spacing between radio buttons */
+  }
+  
+  .radio-group label {
+    margin-bottom: 10px;
+    padding-top: 0; /* Remove the top padding on labels */
+  }
+  
+  .radio-group p {
+    margin: 0; /* Remove default margin on the paragraph */
+    padding-right: 10px;
+    margin-bottom: 10px; /* Add spacing to the right of the paragraph */
+  }
+  #Male, #Female, #Other{
+    margin-bottom: 10px;
+  }
+  .custom-input {
+    /* Resetting default styles */
+    border: none;
+    outline: none;
+    background-color: transparent;
+    /* Add your custom styles here */
+    /* For example */
+
+    color: white;  
+  }
+
+  .register{
+    top: 10px;
+    margin:0px 150px!important;
+  }
+ .backround{
+  
+    background-color: #37517e!important;
+    background-image: linear-gradient(180deg, #37517f 10%, #224abe 100%)!important;
+    background-size: cover;
+  }
+  
+ 
+  
+ 

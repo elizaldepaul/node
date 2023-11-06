@@ -1,0 +1,243 @@
+<%- include('layout/header') %>
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <div class="row align-items-center">
+        <div class="col">
+          <h6 class="m-0 font-weight-bold text-primary">
+            All Your Activities To Come
+          </h6>
+        </div>
+        <div class="col-auto">
+          <input
+            class="btn btn-primary"
+            id="add_btn"
+            type="submit"
+            name="Update"
+            value="Add"
+            onclick="openModal()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <% if (message) { %>
+      <div
+        class="alert-dismissable fade show alert-<%= message.type %>"
+        role="alert"
+      >
+        <button
+          class="btn-close"
+          type="button"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+        <strong><%= message.message %></strong>
+      </div>
+      <% } %>
+      <div class="table-responsive">
+        <% if (users != "") { %>
+
+        <table
+          class="table table-bordered"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Age</th>
+              <th>Action</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            <% users.forEach((row, tables) => { %>
+            <tr>
+              <td><%= tables %></td>
+              <td>
+                <img
+                  src="<%= row.image %>"
+                  width="50"
+                  alt="image"
+                  srcset=""
+                  class="img-profile"
+                />
+              </td>
+              <td><%= row.first_name %> <%= row.last_name %></td>
+              <td><%= row.email %></td>
+              <td><%= row.age %></td>
+              <td>
+                <a href="/edit_users/<%= row._id %>" class="text-success"
+                  ><i class="fas fa-edit fa-lg mx-1"></i
+                ></a>
+
+                <a href="/delete_user/<%= row._id %>" class="text-danger"
+                  ><i class="fas fa-trash fa-lg mx-1"></i
+                ></a>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } else { %>
+        <h1 class="text-center text-secondary mt-5">
+          No Users Found In the DataBase
+        </h1>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+
+<!-- Add Modal -->
+<div class="row justify-content-center">
+  <div id="myModal" class="modal">
+    <div class="container">
+      <div class="col-lg-6">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mt-4">Add</h1>
+                <span class="close" onclick="closeModal()">&times;</span>
+              </div>
+              <div class="modal-content">
+                <form
+                  action="/add_users"
+                  method="post"
+                  autocomplete="off"
+                  enctype="multipart/form-data"
+                >
+                  <div class="form-group">
+                    <label for="Name">Name:</label>
+                    <input type="text" name="first_name" value="" />
+                  </div>
+                  <div class="form-group">
+                    <label for="Name">Name:</label>
+                    <input type="text" name="last_name" value="" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Email">Email:</label>
+                    <input type="email" name="email" value="" />
+                  </div>
+                  <div class="form-group">
+                    <label for="Name">Name:</label>
+                    <input type="text" name="address" value="" />
+                  </div>
+                  <div class="form-group">
+                    <label for="Age">Age:</label>
+                    <input type="number" name="age" value="" />
+                  </div>
+                  <div class="form-group">
+                    <label for="Password">Password:</label>
+                    <input type="password" name="password" />
+                  </div>
+                  <div class="form-group">
+                    <label for="Password">Confirm Password:</label>
+                    <input type="password" name="cpassword" value="" />
+                  </div>
+                  <p>Gender:</p>
+                  <input
+                    type="radio"
+                    id="Male"
+                    name="gender"
+                    value="Male"
+                    style="
+                      margin-left: 20px;
+                      padding-bottom: 10px;
+                      margin-bottom: 10px;
+                    "
+                    required
+                  />
+                  <label for="Male">Male</label>
+                  <input
+                    type="radio"
+                    id="Female"
+                    name="gender"
+                    value="Female"
+                    style="
+                      margin-left: 20px;
+                      padding-bottom: 10px;
+                      margin-bottom: 10px;
+                    "
+                    required
+                  />
+                  <label for="Female">Female</label>
+                  <label for="Image">Image:</label>
+                  <input type="file" name="image" value="" /><br />
+
+                  <div class="text-center">
+                    <input type="submit" name="Add" value="Add" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Modal -->
+<script>
+  function validateForm() {
+    var password = document.forms["registrationForm"]["password"].value;
+    var confirmPassword = document.forms["registrationForm"]["cpassword"].value;
+
+    if (confirmPassword === "") {
+      alert("Confirm Password must be filled out");
+      return false;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return false;
+    }
+
+    return true;
+  }
+
+  // Function to open the modal
+  function openModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+  }
+
+  // Close the modal if the user clicks outside of it
+  window.onclick = function (event) {
+    var modal = document.getElementById("myModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+
+<!-- =======================================================   end of add modal =============================================================== -->
+
+<%- include('layout/footer') %>

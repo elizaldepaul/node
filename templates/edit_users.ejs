@@ -1,0 +1,64 @@
+<%- include('layout/header') %>
+
+<!-- Edit Modal -->
+<div class="row justify-content-center">
+    <div class="container">
+      <div class="col-lg-6">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mt-4">Edit <%= user.name %> Details</h1>
+              </div>
+              <div class="modal-content">
+                <form
+                  action="/update/<%= user._id %>"
+                  method="post"
+                  autocomplete="off"
+                  enctype="multipart/form-data"
+                >
+                  <div class="form-group">
+                    <label for="Name">Name:</label>
+                    <input type="text" name="name" value="<%= user.first_name %>" />
+                  </div>
+                   <div class="form-group">
+                    <label for="Name">Name:</label>
+                    <input type="text" name="name" value="<%= user.last_name %>" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="Email">Email:</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value="<%= user.email %>"
+                    />
+                    <!-- Populate with user's data -->
+                  </div>
+                  <div class="form-group">
+                    <label for="Phone">Phone:</label>
+                    <input type="tel" name="phone" value="<%= user.age %>" />
+                    <!-- Populate with user's data -->
+                  </div>
+
+                  <label for="Image">Image:</label>
+                  <input type="file" name="image" value=""  /><br />
+                  <img src="/<%= user.image%>" width="100" alt="" srcset="" />
+                  <input
+                    type="hidden"
+                    name="old_image"
+                    value="<%= user.image %>"
+                  />
+                  <div class="text-center">
+                    <input type="submit" name="Update" value="Save Changes" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('layout/footer') %>
